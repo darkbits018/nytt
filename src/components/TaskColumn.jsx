@@ -2,7 +2,8 @@ import React from "react";
 import "./TaskColumn.css";
 import TaskCard from "./TaskCard";
 
-const TaskColumn = ({ icon, title, tasks, status, handleDelete }) => {
+const TaskColumn = ({ icon, title, tasks, status, handleDelete, setTasks }) => {
+  const filteredTasks = tasks.filter((task) => task.status === status);
   return (
     <div>
       <section className="task_column">
@@ -10,18 +11,17 @@ const TaskColumn = ({ icon, title, tasks, status, handleDelete }) => {
           <img className="task_column_icon" src={icon} alt="" /> {title}
         </h2>
 
-        {tasks.map(
-          (task, index) =>
-            task.status === status && (
-              <TaskCard
-                key={index}
-                title={task.task}
-                tags={task.tags}
-                handleDelete={handleDelete}
-                index={index}
-              />
-            )
-        )}
+        {filteredTasks.map((task, index) => (
+        <TaskCard
+          key={task.id}  // Use task.id as key for better performance
+          title={task.title}  // Use task.title instead of task.task
+          tags={task.tags}
+          handleDelete={handleDelete}
+          index={index}
+          taskId={task.id}  // Pass taskId
+          setTasks={setTasks}  // Pass setTasks
+        />
+      ))}
       </section>
     </div>
   );
