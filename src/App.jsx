@@ -6,14 +6,22 @@ import todo from "./assets/direct-hit.png";
 import doinIcon from "./assets/glowing-star.png";
 import doneIcon from "./assets/check-mark-button.png";
 import { auth } from "./firebase";  // Import Firebase auth
-import { fetchTasks } from "./tasks";  // Import fetchTasks
+import { fetchTasks, deleteTask  } from "./tasks";  // Import fetchTasks
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
-  const handleDelete = (taskIndex) => {
-    const newTasks = tasks.filter((task, index) => index !== taskIndex);
-    setTasks(newTasks);
+  const handleDelete = async (taskId) => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      try {
+        await deleteTask(taskId);
+        const updatedTasks = await fetchTasks(currentUser.uid);
+        setTasks(updatedTasks);
+      } catch (error) {
+        console.error("Error deleting task:", error);
+      }
+    }
   };
   useEffect(() => {
     const fetchUserTasks = async () => {

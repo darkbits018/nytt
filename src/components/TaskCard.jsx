@@ -6,17 +6,8 @@ import { deleteTask, fetchTasks } from "../tasks";
 import { auth } from "../firebase";
 
 const TaskCard = ({ title, tags, handleDelete, index, taskId, setTasks  }) => {
-  const handleDeleteTask = async () => {
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      try {
-        await deleteTask(taskId);
-        const updatedTasks = await fetchTasks(currentUser.uid);
-        setTasks(updatedTasks);
-      } catch (error) {
-        console.error("Error deleting task:", error);
-      }
-    }
+  const handleDeleteTask = () => {
+    handleDelete(taskId);
   };
   return (
     <article className="task_card">
@@ -28,7 +19,7 @@ const TaskCard = ({ title, tags, handleDelete, index, taskId, setTasks  }) => {
             <Tag key={index} tagName={tag} selected={true} />
           ))}
         </div>
-        <div className="task_delete" onClick={() => handleDelete(index)}>
+        <div className="task_delete" onClick={() => handleDeleteTask(index)}>
           <img className="delete_icon" src={delIcon} alt="" />
         </div>
       </div>
