@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { signInWithGoogle, signInWithEmail, registerWithEmail, logout } from "./auth";
+import { signInWithGithub } from "./auth";
+
+
 
 const AuthWrapper = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -23,6 +26,15 @@ const AuthWrapper = ({ children }) => {
       console.error("Error signing in with Google:", error);
     }
   };
+
+  const handleGithubLogin = async () => {
+    try {
+      await signInWithGithub();
+      // Handle successful login
+    } catch (error) {
+      console.error("Error with GitHub login:", error);
+    }
+  }
 
   const handleSignInWithEmail = async () => {
     try {
@@ -67,6 +79,7 @@ const AuthWrapper = ({ children }) => {
         <button onClick={handleSignInWithEmail}>Sign In with Email</button>
         <button onClick={handleRegisterWithEmail}>Register with Email</button>
         <button onClick={handleSignInWithGoogle}>Sign In with Google</button>
+        <button onClick={handleGithubLogin}>Sign In with GitHub</button>
       </div>
     );
   }
