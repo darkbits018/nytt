@@ -1,0 +1,23 @@
+.profile-pic {
+    border-radius: 50%;
+    height: 50px;
+    margin-left: 5px;
+    border: 1px black solid;
+}
+
+.user-info {
+    background-color: #E2BBE9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.logout-button {
+    margin-right: 5px;
+}
+
+.user-email {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 700;
+}

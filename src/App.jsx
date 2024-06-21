@@ -7,6 +7,7 @@ import doinIcon from "./assets/glowing-star.png";
 import doneIcon from "./assets/check-mark-button.png";
 import { auth } from "./firebase";  // Import Firebase auth
 import { fetchTasks, deleteTask  } from "./tasks";  // Import fetchTasks
+import Header from "./components/header";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -37,6 +38,7 @@ const App = () => {
   console.log("tasks", tasks);
   return (
     <div className="app">
+      <Header/>
       <TaskForm setTasks={setTasks} />
       <main className="app_main">
         <TaskColumn
